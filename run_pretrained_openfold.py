@@ -472,7 +472,7 @@ if __name__ == "__main__":
         "--experiment_config_json", default="", help="Path to a json file with custom config values to overwrite config setting",
     )
     parser.add_argument(
-        "--use_deepspeed_evoformer_attention", action="store_true", default=False, 
+        "--use_deepspeed_evoformer_attention", action="store_true", default=True, 
         help="Whether to use the DeepSpeed evoformer attention layer. Must have deepspeed installed in the environment.",
     )
     add_data_args(parser)

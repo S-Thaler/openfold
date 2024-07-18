@@ -26,17 +26,18 @@ mkdir -p "${ALIGNMENT_DIR}"
 for chain_dir in $(ls "${RODA_DIR}"); do
     CHAIN_DIR_PATH="${RODA_DIR}/${chain_dir}"
     for subdir in $(ls "${CHAIN_DIR_PATH}"); do
-        if [[ ! -d "$subdir" ]]; then
-            echo "$subdir is not directory"
+        SUBDIR_PATH="${CHAIN_DIR_PATH}/${subdir}"
+        if [[ ! -d "$SUBDIR_PATH" ]]; then
+            echo "$SUBDIR_PATH is not directory"
             continue
-        elif [[ -z $(ls "${subdir}")]]; then
+        elif [[ -z $(ls "${SUBDIR_PATH}") ]]; then
             continue
         elif [[ $subdir = "pdb" ]] || [[ $subdir = "cif" ]]; then
-            mv "${CHAIN_DIR_PATH}/${subdir}"/* "${DATA_DIR}"
+            cp -r "${SUBDIR_PATH}/"/* "${DATA_DIR}"
         else
             CHAIN_ALIGNMENT_DIR="${ALIGNMENT_DIR}/${chain_dir}"
             mkdir -p "${CHAIN_ALIGNMENT_DIR}"
-            mv "${CHAIN_DIR_PATH}/${subdir}"/* "${CHAIN_ALIGNMENT_DIR}"
+            cp -r "${SUBDIR_PATH}"/* "${CHAIN_ALIGNMENT_DIR}"
         fi
     done
 done
